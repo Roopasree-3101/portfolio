@@ -3,173 +3,485 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <meta name="description" content="Portfolio of Roopa Sree S., software developer interested in frontend development, AI and machine learning." />
+  <title>Roopa Sree S. | Aspiring Software Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      color-scheme: light;
+      --bg: #f7faf8;
+      --surface: #ffffff;
+      --surface-soft: #edf7f0;
+      --text: #17251c;
+      --muted: #5d6b61;
+      --accent: #21864b;
+      --accent-strong: #176b39;
+      --border: #dce8df;
+      --shadow: 0 12px 32px rgba(28, 70, 43, .08);
+      --header: rgba(255, 255, 255, .9);
     }
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #101713;
+      --surface: #18221b;
+      --surface-soft: #1e3024;
+      --text: #edf7ef;
+      --muted: #b2c2b6;
+      --accent: #69d18d;
+      --accent-strong: #8ce3a8;
+      --border: #2c4032;
+      --shadow: 0 12px 32px rgba(0, 0, 0, .22);
+      --header: rgba(16, 23, 19, .9);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
     body {
-      font-family: 'Poppins', sans-serif;
-      background: #f0f4f8;
-      color: #333;
-      line-height: 1.6;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.7;
+      transition: background .25s ease, color .25s ease;
     }
-    header {
-      background-color: #4caf50;
-      color: white;
-      padding: 3rem 1rem;
-      text-align: center;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent-strong); }
+    a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    .container { width: min(1100px, calc(100% - 40px)); margin-inline: auto; }
+    .site-header {
+      position: sticky; top: 0; z-index: 100; background: var(--header);
+      backdrop-filter: blur(14px); border-bottom: 1px solid var(--border);
     }
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
+    .nav-wrap { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { color: var(--text); font-size: 1.05rem; font-weight: 800; letter-spacing: -.03em; white-space: nowrap; }
+    .brand span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 22px; list-style: none; }
+    .nav-links a { color: var(--muted); font-size: .91rem; font-weight: 600; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .icon-btn, .menu-btn {
+      display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--border);
+      border-radius: 12px; width: 42px; height: 42px; background: var(--surface); color: var(--text);
+      cursor: pointer; font-size: 1.1rem;
     }
-    header p {
-      font-size: 1.2rem;
-      opacity: 0.9;
+    .menu-btn { display: none; }
+    .hero { padding: 100px 0 76px; position: relative; overflow: hidden; }
+    .hero::before {
+      content: ""; position: absolute; width: 390px; height: 390px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(61, 178, 103, .14), transparent 70%);
+      top: -130px; right: -80px; pointer-events: none;
     }
-    section {
-      padding: 2rem 1rem;
-      max-width: 960px;
-      margin: auto;
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(230px, .7fr); gap: 55px; align-items: center; }
+    .eyebrow { display: inline-flex; gap: 9px; align-items: center; color: var(--accent); background: var(--surface-soft); padding: 7px 12px; border-radius: 999px; font-size: .82rem; font-weight: 700; }
+    .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+    h1 { font-size: clamp(2.7rem, 6vw, 4.7rem); line-height: 1.08; letter-spacing: -.065em; margin: 22px 0 18px; }
+    h1 span { color: var(--accent); }
+    .hero-copy { max-width: 650px; color: var(--muted); font-size: 1.08rem; }
+    .hero-buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn { display: inline-flex; justify-content: center; align-items: center; gap: 9px; padding: 12px 18px; border-radius: 12px; font-weight: 700; font-size: .93rem; border: 1px solid transparent; cursor: pointer; transition: transform .2s ease, background .2s ease; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--accent); color: #fff; }
+    [data-theme="dark"] .btn-primary { color: #102016; }
+    .btn-primary:hover { background: var(--accent-strong); color: #fff; }
+    [data-theme="dark"] .btn-primary:hover { color: #102016; }
+    .btn-secondary { border-color: var(--border); background: var(--surface); color: var(--text); }
+    .hero-card { border: 1px solid var(--border); border-radius: 24px; padding: 26px; background: var(--surface); box-shadow: var(--shadow); position: relative; }
+    .avatar { width: 76px; height: 76px; display: grid; place-items: center; border-radius: 22px; background: var(--surface-soft); color: var(--accent); font-size: 1.5rem; font-weight: 800; margin-bottom: 18px; }
+    .hero-card h2 { font-size: 1.15rem; margin-bottom: 8px; }
+    .hero-card p { color: var(--muted); font-size: .92rem; }
+    .quick-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 22px; }
+    .fact { background: var(--surface-soft); padding: 13px; border-radius: 13px; }
+    .fact strong { display: block; font-size: 1.05rem; color: var(--accent); }
+    .fact span { color: var(--muted); font-size: .78rem; }
+    section { padding: 72px 0; }
+    .section-heading { margin-bottom: 30px; max-width: 680px; }
+    .section-kicker { color: var(--accent); text-transform: uppercase; letter-spacing: .12em; font-size: .75rem; font-weight: 800; }
+    h2.section-title { font-size: clamp(1.8rem, 4vw, 2.5rem); line-height: 1.2; letter-spacing: -.045em; margin: 7px 0 10px; }
+    .section-intro { color: var(--muted); }
+    .about-panel, .card, .timeline-item, .contact-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; box-shadow: var(--shadow); }
+    .about-panel { padding: 28px; }
+    .about-panel p { color: var(--muted); }
+    .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .skill-group { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+    .skill-group h3 { font-size: 1rem; margin-bottom: 13px; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag { display: inline-flex; background: var(--surface-soft); color: var(--accent-strong); padding: 5px 10px; border-radius: 8px; font-size: .79rem; font-weight: 700; }
+    [data-theme="dark"] .tag { color: var(--accent); }
+    .timeline { display: grid; gap: 18px; }
+    .timeline-item { padding: 24px; display: grid; grid-template-columns: 175px 1fr; gap: 25px; }
+    .timeline-date { color: var(--accent); font-size: .88rem; font-weight: 800; }
+    .timeline-item h3 { font-size: 1.12rem; line-height: 1.4; }
+    .timeline-item .role { color: var(--muted); font-size: .91rem; margin: 4px 0 12px; }
+    .timeline-item ul { padding-left: 20px; color: var(--muted); }
+    .timeline-item li + li { margin-top: 5px; }
+    .project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .project-card { display: flex; flex-direction: column; padding: 24px; min-height: 100%; }
+    .project-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+    .project-icon { display: grid; place-items: center; width: 45px; height: 45px; flex: 0 0 45px; border-radius: 13px; background: var(--surface-soft); color: var(--accent); font-weight: 800; }
+    .project-card h3 { font-size: 1.1rem; line-height: 1.4; margin-bottom: 8px; }
+    .project-card p { color: var(--muted); font-size: .92rem; margin-bottom: 17px; }
+    .project-card .tag-list { margin-top: auto; margin-bottom: 18px; }
+    .project-links { display: flex; flex-wrap: wrap; gap: 15px; font-size: .9rem; font-weight: 700; }
+    .project-links a[aria-disabled="true"] { color: var(--muted); cursor: not-allowed; }
+    .achievements-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .achievement { padding: 22px; display: flex; gap: 15px; align-items: flex-start; }
+    .achievement-icon { display: grid; place-items: center; flex: 0 0 42px; height: 42px; border-radius: 12px; background: var(--surface-soft); color: var(--accent); font-size: 1.15rem; }
+    .achievement h3 { font-size: 1rem; margin-bottom: 4px; }
+    .achievement p { color: var(--muted); font-size: .88rem; }
+    .education-card { padding: 25px; }
+    .education-card h3 { font-size: 1.08rem; }
+    .education-card p { color: var(--muted); }
+    .education-date { color: var(--accent) !important; font-weight: 700; font-size: .88rem; margin: 4px 0 9px; }
+    .contact-panel { padding: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; }
+    .contact-panel p { color: var(--muted); }
+    .contact-links { display: grid; gap: 11px; }
+    .contact-link { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; overflow-wrap: anywhere; }
+    .contact-link strong { color: var(--text); font-size: .9rem; }
+    .contact-link span { color: var(--muted); font-size: .85rem; }
+    .site-footer { border-top: 1px solid var(--border); padding: 24px 0; color: var(--muted); font-size: .86rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .note { margin-top: 14px; color: var(--muted); font-size: .82rem; }
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
     }
-    h2 {
-      color: #4caf50;
-      font-size: 2rem;
-      margin-bottom: 1rem;
+    @media (max-width: 900px) {
+      .nav-links { gap: 13px; }
+      .nav-links a { font-size: .84rem; }
+      .hero-grid { gap: 28px; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
     }
-    .project {
-      margin-bottom: 1.5rem;
-      padding: 1.5rem;
-      border-radius: 12px;
-      background: white;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-      transition: transform 0.2s ease, box-shadow 0.3s ease;
-    }
-    .project:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    }
-    .project h3 {
-      margin-bottom: 0.5rem;
-      color: #333;
-    }
-    .project p {
-      margin-bottom: 0.5rem;
-    }
-    .project a {
-      color: #4caf50;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .links a {
-      display: inline-block;
-      margin: 0.5rem 1rem 0.5rem 0;
-      text-decoration: none;
-      color: #4caf50;
-      font-weight: 500;
-    }
-    footer {
-      background-color: #e0e0e0;
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-      color: #555;
-      margin-top: 2rem;
-    }
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 2rem;
+    @media (max-width: 720px) {
+      .nav-wrap { min-height: 66px; }
+      .menu-btn { display: inline-flex; }
+      .nav-links {
+        display: none; position: absolute; top: 66px; left: 0; right: 0; padding: 18px 20px 22px;
+        flex-direction: column; align-items: stretch; gap: 0; background: var(--surface);
+        border-bottom: 1px solid var(--border); box-shadow: var(--shadow);
       }
-      h2 {
-        font-size: 1.5rem;
-      }
+      .nav-links.open { display: flex; }
+      .nav-links li a { display: block; padding: 10px 0; font-size: .95rem; }
+      .hero { padding: 72px 0 48px; }
+      .hero-grid, .contact-panel { grid-template-columns: 1fr; }
+      .hero-card { max-width: 440px; }
+      section { padding: 54px 0; }
+      .timeline-item { grid-template-columns: 1fr; gap: 8px; }
+      .project-grid, .achievements-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 460px) {
+      .container { width: min(100% - 28px, 1100px); }
+      .skills-grid { grid-template-columns: 1fr; }
+      .hero-buttons .btn { width: 100%; }
+      .about-panel, .project-card, .timeline-item, .contact-panel { padding: 20px; }
+      h1 { font-size: 2.65rem; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>S.ROOPA SREE</h1>
-    <p>Software Developer | AI & ML Enthusiast | Solving real-world problems</p>
+  <header class="site-header">
+    <nav class="container nav-wrap" aria-label="Main navigation">
+      <a class="brand" href="#home">Roopa Sree<span>.</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#achievements">Achievements</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch to dark theme" title="Toggle theme">☾</button>
+        <button class="menu-btn" id="menuToggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+      </div>
+    </nav>
   </header>
-  
-  <section>
-    <h2>About Me</h2>
-    <p>
-      Aspiring Software Engineer (2026 Batch), enthusiastic and results-driven Computer Science and Engineering Graduate with a strong foundation in algorithms, software development. Seeking an opportunity to leverage coding, problem solving, and teamwork skills in a dynamic tech environment to contribute to impactful projects and continue learning through real-world experience.
-    </p>
-  </section>
-  <section>
-  <h2>Experience</h2>
 
-  <div class="project">
-    <h3>Intern – Codeplayers Business System Pvt. Ltd.</h3>
-    <p><strong>Duration:</strong> 2 Months</p>
-    <p><strong>Role:</strong> Web Development Intern</p>
-    <ul>
-      <li>Built ERP-integrated websites using HTML, CSS, JavaScript, and React.js, improving UI/UX forclient portals.</li>
-      <li> Supported ERP customization by aligning frontend features with client needs.</li>
-      <li> Communicated with clients to gather requirements, deliver demos, and generate leads.</li>
-      <li> Designed marketing brochures to promote ERP solutions and support sales efforts.</li>
-    </ul>
-  </div>
-  <div class="project">
-    <h3>Intern – ESSO-INCOIS-Indian National Centre For Ocean Information Services</h3>
-    <p><strong>Duration:</strong> 6 Months</p>
-    <p><strong>Role:</strong> project Intern(Frontend Development)</p>
-    <ul>
-      <li> Developed and enhanced modules of the Data Transfer Portal (DTP) using ReactJS and integrated fronted components with backend APIs.</li>
-      <li> Implemented CRUD operations, dynamic data rendering, and route management for Users, Roles, Applications, and Approvals modules.</li>
-      <li> Built multiple React-based applications including Quiz Management System, Project Management Application, and Investment Calculator.</li>
-      <li> Gained practical exposure to Spring Boot, REST APIs, Swagger UI, and frontend-backend integration in an enterprise application environment.</li>
-    </ul>
-  </div>
-</section>
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Aspiring Software Developer and Full Stack Developer</span>
+          <h1>Hi, I'm <span>Roopa Sree.</span></h1>
+          <p class="hero-copy">Computer Science and Engineering graduate with experience in frontend development, API integration, and AI-powered projects. I enjoy building practical, user-focused solutions and learning through real-world challenges.</p>
+          <div class="hero-buttons">
+            <a class="btn btn-primary" href="#projects">Explore my projects <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-secondary" href="ROOPA SREE_I.pdf" download>Download resume <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+        <aside class="hero-card" aria-label="Profile summary">
+          
+          <h2>Developer focused on useful technology</h2>
+          <p>Frontend development, full-stack integration, machine learning, and accessible digital experiences.</p>
+          <div class="quick-facts">
+            <div class="fact"><strong>2</strong><span>Internship experiences</span></div>
+            <div class="fact"><strong>AI + Web</strong><span>Project interests</span></div>
+            <div class="fact"><strong>React.js</strong><span>Frontend experience</span></div>
+            <div class="fact"><strong>Software Quality Assurance</strong><span>Testing and validation</span></div>
+          </div>
+        </aside>
+      </div>
+    </section>
 
-  <section>
-    <h2>Projects</h2>
+    <section id="about">
+      <div class="container reveal">
+        <div class="section-heading">
+          <p class="section-kicker">A little about me</p>
+          <h2 class="section-title">About me</h2>
+          <p class="section-intro">A curious developer who enjoys turning ideas into useful applications.</p>
+        </div>
+        <div class="about-panel">
+          <p>I'm a Computer Science and Engineering graduate with a foundation in algorithms and software development. Through internships and academic projects, I've worked on responsive React.js interfaces, frontend-backend integration, CRUD workflows, and machine-learning applications. I'm looking for opportunities to contribute my coding, problem-solving, and teamwork skills while continuing to grow in a collaborative technology environment.</p>
+        </div>
+      </div>
+    </section>
 
-    <div class="project">
-      <h3>Smart Crop Disease Detection System</h3>
-      <p>A machine learning-based solution to detect crop diseases from leaf images using deep learning and image processing techniques. This system helps farmers and agricultural experts identify diseases early, enabling faster and more effective treatment.</p>
-      <p><a href="https://github.com/Roopasree-3101/Smart-crop-disease-detection-system">GitHub Link</a></p>
-    </div>
-    <div class="project">
-      <h3>online-Examination-management-system</h3>
-      <p>A web-based system that enables secure, automated exam creation, candidate registration, question paper management, and result processing for institutions.</p>
-      <p><a href="https://github.com/Roopasree-3101/online-Examination-management-system">GitHub Link</a></p>
-    </div>
-    </div>
-    <div class="project">
-      <h3>Internship-Project-Codeplayers-business-System-PVTLTD</h3>
-      <p>[TEAM PROJECT]Built the official website for Codeplayers Business System Pvt. Ltd. during my internship, focusing on clean UI/UX and responsive design.</p>
-      <p><a href="https://github.com/Roopasree-3101/Internship-Project-Codeplayers-business-System-PVTLTD">GitHub Link</a></p>
-    </div>
-    <div class="project">
-      <h3>VoiceScheme - Multilingual Voice Chatbot for Government Welfare Schemes</h3>
-      <p>A multilingual voice chatbot designed to provide information and assistance regarding government welfare schemes, improving accessibility for users across different regions and language groups.</p>
-      <p><a href="https://github.com/Roopasree-3101/Book_Chapter">GitHub Link</a></p>
-    </div>
-    <!-- Add more projects below -->
+    <section id="skills">
+      <div class="container reveal">
+        <div class="section-heading">
+          <p class="section-kicker">What I work with</p>
+          <h2 class="section-title">Technical skills</h2>
+          <p class="section-intro">Tools and technologies I have worked with in internships and projects.</p>
+        </div>
+        <div class="skills-grid">
+          <article class="skill-group">
+            <h3>Programming</h3>
+            <div class="tag-list"><span class="tag">Java</span><span class="tag">Python</span><span class="tag">C</span><span class="tag">SQL</span></div>
+          </article>
+          <article class="skill-group">
+            <h3>Web development</h3>
+            <div class="tag-list"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">React.js</span></div>
+          </article>
+          <article class="skill-group">
+            <h3>AI &amp; data</h3>
+            <div class="tag-list"><span class="tag">CNN(Convolutional Neural Networks)</span><span class="tag">OpenCV</span><span class="tag">NLTK</span><span class="tag">Streamlit</span></div>
+          </article>
+          <article class="skill-group">
+            <h3>Software development Methodologies</h3>
+            <div class="tag-list"><span class="tag">SDLC</span><span class="tag">Agile/Scrum</span><span class="tag">STLC</span><span class="tag">Software Quality Assurance</span></div>
+          </article>
+          <article class="skill-group">
+            <h3>Other tools</h3>
+            <div class="tag-list"><span class="tag">Git</span><span class="tag">VS Code</span><span class="tag">Swagger UI</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-  </section>
+    <section id="experience">
+      <div class="container reveal">
+        <div class="section-heading">
+          <p class="section-kicker">Where I've contributed</p>
+          <h2 class="section-title">Experience</h2>
+          <p class="section-intro">Internship experience across business software and frontend development.</p>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item">
+            <div class="timeline-date">Jan 2026 – Jun 2026</div>
+            <div>
+              <h3>Project Intern – Frontend Development</h3>
+              <p class="role">ESSO-INCOIS · Indian National Centre for Ocean Information Services · Hyderabad, India</p>
+              <ul>
+                <li>Developed and enhanced modules of the Data Transfer Portal (DTP) using ReactJS and integrated frontend components with backend APIs.</li>
+                <li>Implemented CRUD operations, dynamic data rendering, and route management for Users, Roles, Applications, and Approvals modules.</li>
+                <li>Built React-based applications including a Quiz Management System, Project Management Application, and Investment Calculator.</li>
+                <li>Gained practical exposure to Spring Boot, REST APIs, Swagger UI, and frontend-backend integration in an enterprise application environment.</li>
+              </ul>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-date">May 2024 – Jul 2024</div>
+            <div>
+              <h3>Intern – Software Development &amp; Business Development</h3>
+              <p class="role">CodePlayers Business System Pvt. Ltd. · Raipur, India</p>
+              <ul>
+                <li>Built company websites using HTML, CSS, JavaScript, and React.js, improving UI/UX for client portals.</li>
+                <li>Supported ERP customization by aligning frontend features with client needs.</li>
+                <li>Communicated with clients to gather requirements, deliver demos, and generate leads.</li>
+                <li>Designed marketing brochures to promote ERP solutions and support sales efforts.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-  <section>
-    <h2>Contact</h2>
-    <div class="links">
-      <a href="https://github.com/Roopasree-3101">GitHub</a></br>
-      <a href="www.linkedin.com/in/roopa-sree-sunnapusetty-77b730294">Linkedin
-</a></br>
-      <a href="mailto:roopasree2212@gmail.com">Email</a>
+    <section id="projects">
+      <div class="container reveal">
+        <div class="section-heading">
+          <h2 class="section-title">Projects</h2>
+          <p class="section-intro">A selection of academic and internship work. Open the repository links to explore the code.</p>
+        </div>
+        <div class="project-grid">
+          <article class="card project-card">
+            <div class="project-top"><div class="project-icon" aria-hidden="true">AI</div><span class="tag">Academic project</span></div>
+            <h3>Smart Crop Disease Detection System</h3>
+            <p>Built a CNN-based image-classification model to detect crop diseases from leaf images, achieving 92% accuracy on agricultural datasets. Used image preprocessing and augmentation, and created a Streamlit interface for disease prediction and result visualization.</p>
+            <div class="tag-list"><span class="tag">Python</span><span class="tag">TensorFlow</span><span class="tag">OpenCV</span><span class="tag">Streamlit</span></div>
+            <div class="project-links"><a href="https://github.com/Roopasree-3101/Smart-crop-disease-detection-system" target="_blank" rel="noopener noreferrer">GitHub repository ↗</a></div>
+          </article>
+          <article class="card project-card">
+            <div class="project-top"><div class="project-icon" aria-hidden="true">VS</div><span class="tag">AI &amp; accessibility</span></div>
+            <h3>VoiceScheme – Multilingual Voice Chatbot</h3>
+            <p>A voice-first web application designed to help rural BPL families discover potentially relevant government welfare schemes through natural-language queries in English, Hindi, Tamil, and Telugu. The resume describes a Flask API, rule-based eligibility engine, NLTK intent detection, language auto-detection, and voice output.</p>
+            <div class="tag-list"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">React.js</span><span class="tag">NLTK</span><span class="tag">Web Speech API</span><span class="tag">SQLite</span></div>
+            <div class="project-links"><a href="https://github.com/Roopasree-3101/Book_Chapter" target="_blank" rel="noopener noreferrer">Repository / book chapter ↗</a></div>
+          </article>
+          <article class="card project-card">
+            <div class="project-top"><div class="project-icon" aria-hidden="true">ERP</div><span class="tag">Internship project</span></div>
+            <h3>ERP Website – CodePlayers</h3>
+            <p>Developed responsive React.js UI components for company/client websites, worked with backend teams to integrate ERP modules, and focused on usability, navigation, and responsive design.</p>
+            <div class="tag-list"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">React.js</span></div>
+            <div class="project-links"><a href="https://github.com/Roopasree-3101/Internship-Project-Codeplayers-business-System-PVTLTD" target="_blank" rel="noopener noreferrer">GitHub repository ↗</a></div>
+          </article>
+          <article class="card project-card">
+            <div class="project-top"><div class="project-icon" aria-hidden="true">EX</div><span class="tag">Web application</span></div>
+            <h3>Online Examination Management System</h3>
+            <p>A web-based system described in the original portfolio for exam creation, candidate registration, question-paper management, and result processing for institutions.</p>
+            <div class="tag-list"><span class="tag">Web development</span><span class="tag">Exam management</span></div>
+            <div class="project-links"><a href="https://github.com/Roopasree-3101/online-Examination-management-system" target="_blank" rel="noopener noreferrer">GitHub repository ↗</a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="container reveal">
+        <div class="section-heading">
+          <h2 class="section-title">Education</h2>
+        </div>
+        <article class="card education-card">
+          <h3>B.Tech – Computer Science &amp; Engineering</h3>
+          <p class="education-date">July 2022 – July 2026</p>
+          <p>ICFAI Foundation for Higher Education</p>
+          <p>CGPA - 9.94</p>
+        </article>
+        <article class="card education-card" style="margin-top: 14px;">
+          <h3>Intermediate – MPC</h3>
+          <p class="education-date">June 2020 – June 2022</p>
+          <p>Viswasai Junior College </p>
+          <p>Percentage - 95%</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="achievements">
+      <div class="container reveal">
+        <div class="section-heading">
+          <p class="section-kicker">Milestones</p>
+          <h2 class="section-title">Achievements &amp; certifications</h2>
+          <p class="section-intro">Recognition and learning highlights.</p>
+        </div>
+        <div class="achievements-grid">
+          <article class="card achievement">
+            <div class="achievement-icon" aria-hidden="true">✦</div>
+            <div><h3>AWS Cloud Foundations</h3></div>
+          </article>
+          <article class="card achievement">
+            <div class="achievement-icon" aria-hidden="true">🏆</div>
+            <div><h3>Runner-up – IoT GENESIS Hackathon</h3><p>Recognition for a voice-controlled LED project.</p></div>
+          </article>
+          <article class="card achievement">
+            <div class="achievement-icon" aria-hidden="true">⚙</div>
+            <div><h3>IoT IGNITE Hackathon</h3><p>Participant in an obstacle-avoiding car project.</p></div>
+          </article>
+          <article class="card achievement">
+            <div class="achievement-icon" aria-hidden="true">🔧</div>
+            <div><h3>Automatic Parking Sensor</h3><p>Enhanced an automatic parking sensor concept using an ultrasonic sensor and microcontroller in Tinkercad.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container reveal">
+        <div class="section-heading">
+          <p class="section-kicker">Let's connect</p>
+          <h2 class="section-title">Contact</h2>
+          <p class="section-intro">For software development, Full Stack Development opportunities, project discussions, or professional networking.</p>
+        </div>
+        <div class="contact-panel">
+          <div>
+            <h3>Have an opportunity or idea?</h3>
+            <p style="margin-top: 10px;">Feel free to connect through email or professional profiles. I look forward to hearing from you.</p>
+            <a class="btn btn-primary" style="margin-top: 20px;" href="mailto:roopas1931@gmail.com">Email me ↗</a>
+          </div>
+          <div class="contact-links">
+            <a class="contact-link" href="https://github.com/Roopasree-3101" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">⌘</span><div><strong>GitHub</strong><br><span>View Github Profile</span></div></a>
+            <a class="contact-link" href="https://www.linkedin.com/in/roopa-sree-sunnapusetty-77b730294" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">in</span><div><strong>LinkedIn</strong><br><span>View professional profile</span></div></a>
+            <a class="contact-link" href="mailto:roopasree2212@gmail.com"><span aria-hidden="true">✉</span><div><strong>Email</strong><br><span>roopasree2212@gmail.com</span></div></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Roopa Sree S. Built with care.</span>
+      <a href="#home">Back to top ↑</a>
     </div>
-  </section>
-
-  <footer>
-    &copy; 2026 Roopa sree | Built with ❤️
   </footer>
+
+  <script>
+    const root = document.documentElement;
+    const themeToggle = document.getElementById("themeToggle");
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    // Theme choice is saved locally in the browser when storage is available.
+    let savedTheme = null;
+    try { savedTheme = localStorage.getItem("portfolio-theme"); } catch (error) {}
+    if (savedTheme === "dark") root.setAttribute("data-theme", "dark");
+
+    function updateThemeButton() {
+      const isDark = root.getAttribute("data-theme") === "dark";
+      themeToggle.textContent = isDark ? "☀" : "☾";
+      themeToggle.setAttribute("aria-label", isDark ? "Switch to light theme" : "Switch to dark theme");
+      themeToggle.title = isDark ? "Switch to light theme" : "Switch to dark theme";
+    }
+    updateThemeButton();
+
+    themeToggle.addEventListener("click", () => {
+      const isDark = root.getAttribute("data-theme") === "dark";
+      if (isDark) root.removeAttribute("data-theme");
+      else root.setAttribute("data-theme", "dark");
+      try { localStorage.setItem("portfolio-theme", isDark ? "light" : "dark"); } catch (error) {}
+      updateThemeButton();
+    });
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
+      menuToggle.textContent = isOpen ? "✕" : "☰";
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation menu");
+        menuToggle.textContent = "☰";
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const revealItems = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealItems.forEach(item => observer.observe(item));
+    } else {
+      revealItems.forEach(item => item.classList.add("visible"));
+    }
+  </script>
 </body>
 </html>
